@@ -1,0 +1,28 @@
+# Tree-sitter generated files
+src/
+node_modules/
+build/
+*.so
+*.dylib
+*.dll
+
+# Compiled parser
+parser.c
+
+# NPM
+package-lock.json
+yarn.lock
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local config
+.claude/

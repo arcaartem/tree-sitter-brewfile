@@ -1,0 +1,435 @@
+================================================================================
+Basic tap statement
+================================================================================
+
+tap "homebrew/core"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (tap_statement
+    (string)))
+
+================================================================================
+Basic brew statement
+================================================================================
+
+brew "wget"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (brew_statement
+    (string)))
+
+================================================================================
+Brew with arguments
+================================================================================
+
+brew "postgresql@15", restart_service: :changed
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (brew_statement
+    (string)
+    (arguments
+      (pair
+        key: (identifier)
+        value: (symbol)))))
+
+================================================================================
+Cask statement
+================================================================================
+
+cask "firefox"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (cask_statement
+    (string)))
+
+================================================================================
+MAS statement
+================================================================================
+
+mas "Xcode", id: 497799835
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (mas_statement
+    (string)
+    (arguments
+      (pair
+        key: (identifier)
+        value: (number)))))
+
+================================================================================
+Comments
+================================================================================
+
+# This is a comment
+brew "git"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (comment)
+  (brew_statement
+    (string)))
+
+================================================================================
+Multiple statements
+================================================================================
+
+tap "homebrew/core"
+brew "git"
+cask "firefox"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (tap_statement
+    (string))
+  (brew_statement
+    (string))
+  (cask_statement
+    (string)))
+
+================================================================================
+Tap with URL
+================================================================================
+
+tap "user/repo", "https://github.com/user/repo.git"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (tap_statement
+    (string)
+    (string)))
+
+================================================================================
+Tap with slash in name
+================================================================================
+
+tap "felixkratz/formulae"
+tap "homebrew/cask-fonts"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (tap_statement
+    (string))
+  (tap_statement
+    (string)))
+
+================================================================================
+Brew with tap prefix
+================================================================================
+
+brew "koekeishiya/formulae/skhd"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (brew_statement
+    (string)))
+
+================================================================================
+Brew with symbol value
+================================================================================
+
+brew "postgresql@15", restart_service: :changed
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (brew_statement
+    (string)
+    (arguments
+      (pair
+        key: (identifier)
+        value: (symbol)))))
+
+================================================================================
+Brew with multiple arguments
+================================================================================
+
+brew "mysql", restart_service: true, link: true
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (brew_statement
+    (string)
+    (arguments
+      (pair
+        key: (identifier)
+        value: (boolean))
+      (pair
+        key: (identifier)
+        value: (boolean)))))
+
+================================================================================
+Brew with array args
+================================================================================
+
+brew "emacs", args: ["with-cocoa", "with-gnutls"]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (brew_statement
+    (string)
+    (arguments
+      (pair
+        key: (identifier)
+        value: (array
+          (string)
+          (string))))))
+
+================================================================================
+Cask with arguments
+================================================================================
+
+cask "firefox", greedy: true
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (cask_statement
+    (string)
+    (arguments
+      (pair
+        key: (identifier)
+        value: (boolean)))))
+
+================================================================================
+Cask with hash args
+================================================================================
+
+cask "app", args: { appdir: "/Applications" }
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (cask_statement
+    (string)
+    (arguments
+      (pair
+        key: (identifier)
+        value: (hash
+          (pair
+            key: (identifier)
+            value: (string)))))))
+
+================================================================================
+VSCode extension
+================================================================================
+
+vscode "editorconfig.editorconfig"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (vscode_statement
+    (string)))
+
+================================================================================
+Whalebrew image
+================================================================================
+
+whalebrew "whalebrew/wget"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (whalebrew_statement
+    (string)))
+
+================================================================================
+Cask args with multiple keys
+================================================================================
+
+cask_args appdir: "/Applications", fontdir: "/Library/Fonts"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (cask_args_statement
+    (arguments
+      (pair
+        key: (identifier)
+        value: (string))
+      (pair
+        key: (identifier)
+        value: (string)))))
+
+================================================================================
+Empty array
+================================================================================
+
+brew "package", args: []
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (brew_statement
+    (string)
+    (arguments
+      (pair
+        key: (identifier)
+        value: (array)))))
+
+================================================================================
+Empty hash
+================================================================================
+
+cask "app", args: {}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (cask_statement
+    (string)
+    (arguments
+      (pair
+        key: (identifier)
+        value: (hash)))))
+
+================================================================================
+Array with trailing comma
+================================================================================
+
+brew "package", args: ["item1", "item2",]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (brew_statement
+    (string)
+    (arguments
+      (pair
+        key: (identifier)
+        value: (array
+          (string)
+          (string))))))
+
+================================================================================
+Hash with trailing comma
+================================================================================
+
+cask "app", args: { key1: "value1", key2: "value2", }
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (cask_statement
+    (string)
+    (arguments
+      (pair
+        key: (identifier)
+        value: (hash
+          (pair
+            key: (identifier)
+            value: (string))
+          (pair
+            key: (identifier)
+            value: (string)))))))
+
+================================================================================
+Comprehensive real-world example
+================================================================================
+
+# Development tools
+tap "homebrew/core"
+tap "felixkratz/formulae"
+
+# Databases
+brew "postgresql@15", restart_service: :changed
+brew "mysql", link: true
+
+# CLI tools
+brew "git"
+brew "emacs", args: ["with-cocoa", "with-gnutls"]
+
+# GUI applications
+cask "visual-studio-code", greedy: true
+cask "firefox", args: { appdir: "/Applications" }
+
+# Mac App Store
+mas "Xcode", id: 497799835
+
+# Extensions
+vscode "github.copilot"
+
+# Global cask config
+cask_args appdir: "/Applications"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (comment)
+  (tap_statement
+    (string))
+  (tap_statement
+    (string))
+  (comment)
+  (brew_statement
+    (string)
+    (arguments
+      (pair
+        key: (identifier)
+        value: (symbol))))
+  (brew_statement
+    (string)
+    (arguments
+      (pair
+        key: (identifier)
+        value: (boolean))))
+  (comment)
+  (brew_statement
+    (string))
+  (brew_statement
+    (string)
+    (arguments
+      (pair
+        key: (identifier)
+        value: (array
+          (string)
+          (string)))))
+  (comment)
+  (cask_statement
+    (string)
+    (arguments
+      (pair
+        key: (identifier)
+        value: (boolean))))
+  (cask_statement
+    (string)
+    (arguments
+      (pair
+        key: (identifier)
+        value: (hash
+          (pair
+            key: (identifier)
+            value: (string))))))
+  (comment)
+  (mas_statement
+    (string)
+    (arguments
+      (pair
+        key: (identifier)
+        value: (number))))
+  (comment)
+  (vscode_statement
+    (string))
+  (comment)
+  (cask_args_statement
+    (arguments
+      (pair
+        key: (identifier)
+        value: (string)))))

@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Test Parser
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install tree-sitter CLI
+        run: npm install -g tree-sitter-cli
+      - name: Install node-gyp
+        run: npm install -g node-gyp
+      - name: Generate parser
+        run: tree-sitter generate
+      - name: Install dependencies
+        run: npm install
+      - name: Build bindings
+        run: node-gyp rebuild
+      - name: Run tests
+        run: tree-sitter test

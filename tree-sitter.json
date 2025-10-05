@@ -1,0 +1,13 @@
+{
+  "grammars": [
+    {
+      "name": "brewfile",
+      "scope": "source.brewfile",
+      "file-types": ["Brewfile"],
+      "path": "."
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0"
+  }
+}
